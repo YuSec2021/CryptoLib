@@ -20,4 +20,6 @@ add_executable(CryptoLib main.cpp
         Symmetric/XTEA/XTEA.cpp
         Symmetric/XTEA/XTEA.h
         Symmetric/XXTEA/XXTEA.cpp
-        Symmetric/XXTEA/XXTEA.h)
+        Symmetric/XXTEA/XXTEA.h
+        Asymmetric/RSA/RSA.cpp
+        Asymmetric/RSA/RSA.h)

@@ -5,19 +5,27 @@
 #ifndef AES_H
 #define AES_H
 
-#include "../Tools/Tools.h"
-#include "constant.h"
+#include "../../Tools/Tools.h"
+#include "../constant.h"
 
 
 
 class AES
 {
 public:
-    int hexReplace(std::string hexStr);
-    int ReverseHexReplace(std::string byte);
-    void RowShift();
     void encrypt();
     void decrypt();
+
+    // encrypt
+    int hexReplace(std::string hexStr);
+    void RowShift();
+
+
+    // decrypt
+    int ReverseHexReplace(std::string byte);
+    void ReverseRowShift();
+
+
 };
 
 

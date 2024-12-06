@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "Symmetric/AES.h"
+#include "Symmetric/AES/AES.h"
 
 using namespace std;
 

@@ -27,4 +27,10 @@ int AES::ReverseHexReplace(std::string hexStr) {
     return r_s_box[ridx][cidx];
 }
 
-void AES::RowShift() {}
+void AES::RowShift() {
+
+}
+
+void AES::ReverseRowShift() {
+
+}
