@@ -7,22 +7,24 @@
 
 #include "../../Tools/Tools.h"
 #include "../constant.h"
-
+#include <vector>
 
 
 class AES
 {
 public:
+    std::vector<int> plaintext;
+
     void encrypt();
     void decrypt();
 
     // encrypt
-    int hexReplace(std::string hexStr);
+    int hexReplace(unsigned char p);
     void RowShift();
 
 
     // decrypt
-    int ReverseHexReplace(std::string byte);
+    int ReverseHexReplace(unsigned char p);
     void ReverseRowShift();
 
 

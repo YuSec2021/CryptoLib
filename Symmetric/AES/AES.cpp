@@ -5,7 +5,7 @@
 #include "AES.h"
 
 void AES::encrypt() {
-
+    unsigned char ret = stoi(hexStr, 0, 16);
 }
 
 void AES::decrypt() {
@@ -13,17 +13,15 @@ void AES::decrypt() {
 }
 
 
-int AES::hexReplace(std::string hexStr) {
-    unsigned char ret = stoi(hexStr, 0, 16);
-    unsigned char ridx = ret >> 4;
-    unsigned char cidx = ret & 0xf;
+int AES::hexReplace(unsigned char p) {
+    unsigned char ridx = p >> 4;
+    unsigned char cidx = p & 0xf;
     return s_box[ridx][cidx];
 }
 
-int AES::ReverseHexReplace(std::string hexStr) {
-    unsigned char ret = stoi(hexStr, 0, 16);
-    unsigned char ridx = ret >> 4;
-    unsigned char cidx = ret & 0xf;
+int AES::ReverseHexReplace(unsigned char p) {
+    unsigned char ridx = p >> 4;
+    unsigned char cidx = p & 0xf;
     return r_s_box[ridx][cidx];
 }
 
