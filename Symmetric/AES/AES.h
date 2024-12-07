@@ -9,25 +9,30 @@
 #include "../constant.h"
 #include <vector>
 
+using namespace std;
 
 class AES
 {
 public:
-    std::vector<int> plaintext;
+    vector<int> plaintext;
 
     void encrypt();
     void decrypt();
 
     // encrypt
     int hexReplace(unsigned char p);
-    void RowShift();
-
+    void RowShift(vector<unsigned char> &v);
+    void ColumnMix(vector<unsigned char> &v);
 
     // decrypt
-    int ReverseHexReplace(unsigned char p);
-    void ReverseRowShift();
-
-
+    int ReHexReplace(unsigned char p);
+    void ReRowShift(vector<unsigned char> &v);
+    void ReColumnMix(vector<unsigned char> &v);
+    void multiplyMatrices(
+        vector<vector<unsigned char>>& A,
+        vector<vector<unsigned char>>& B,
+        vector<vector<unsigned char>>& C);
+    void gfadd(unsigned char x, unsigned char y);
 };
 
 
