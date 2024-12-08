@@ -20,12 +20,7 @@ int main() {
 
     aes.RowShift(v);
 
-    vector<vector<unsigned char>> mixMatrics = {
-        {2, 3, 1, 1},
-        {1, 2, 3, 1},
-        {1, 1, 2, 3},
-        {3, 1, 1, 2}
-    };
+
     vector<vector<unsigned char>> remixMatrics = {
         {0xE, 0xB, 0xD, 0x9},
         {0x9, 0xE, 0xB, 0xD},
@@ -43,6 +38,9 @@ int main() {
     vector<vector<unsigned char>> test2;
     aes.multiplyMatrices(mixMatrics, test, test2);
 
+    //unsigned char x = aes.gfadd(2, 0xc9) ^ aes.gfadd(3, 0x7a) ^ 0x63 ^ 0xb0;
+
+    //unsigned char y = 0xc9 ^ aes.gfadd(2, 0x7a) ^ aes.gfadd(3, 0x63) ^ 0xb0;
 
     return 0;
 }

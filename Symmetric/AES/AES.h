@@ -32,7 +32,7 @@ public:
         vector<vector<unsigned char>>& A,
         vector<vector<unsigned char>>& B,
         vector<vector<unsigned char>>& C);
-    void gfadd(unsigned char x, unsigned char y);
+    unsigned char gfadd(unsigned char x, unsigned char y);
 };
 
 

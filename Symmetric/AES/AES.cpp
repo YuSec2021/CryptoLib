@@ -79,7 +79,12 @@ void AES::ReRowShift(std::vector<unsigned char> &v) {
 }
 
 void AES::ColumnMix(std::vector<unsigned char> &v) {
-
+    vector<vector<unsigned char>> mixMatrics = {
+        {2, 3, 1, 1},
+        {1, 2, 3, 1},
+        {1, 1, 2, 3},
+        {3, 1, 1, 2}
+    };
 }
 
 void AES::ReColumnMix(vector<unsigned char> &v) {
@@ -94,12 +99,25 @@ void AES::multiplyMatrices(vector<vector<unsigned char>>& A, vector<vector<unsig
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             for (int k = 0; k < 4; k++) {
-                C[i][j] += A[i][k] * B[k][j];
+                C[i][j] ^= gfadd(A[i][k], B[k][j]);
             }
         }
     }
 }
 
-void AES::gfadd(unsigned char x, unsigned char y) {
-    y & 0x80
+unsigned char AES::gfadd(unsigned char x, unsigned char y) {
+    if (x == 1) return y;
+
+    unsigned char count = x / 2;
+    unsigned char mask = y;
+    for (int i = 0 ; i < x / 2 ; i++) {
+        if (mask & 0x80) {
+            mask = (mask << 1) ^ 0x1B;
+        } else {
+            mask = mask << 1;
+        }
+    }
+    if (x % 2) mask ^= y;
+    return mask;
 }
+
