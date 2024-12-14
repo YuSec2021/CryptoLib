@@ -8,11 +8,16 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#include <vector>
+
+using namespace std;
 
 class Tools
 {
 public:
-    static std::string charToHex(char c);
+    static string charToHex(char c);
+    static vector<vector<unsigned char>> convertToVectorOfVectors(const vector<unsigned char>& original);
+    static string toHexString(vector<unsigned char> &vec);
 };
 
 

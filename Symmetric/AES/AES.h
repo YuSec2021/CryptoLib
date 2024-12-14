@@ -8,33 +8,50 @@
 #include "../../Tools/Tools.h"
 #include "../constant.h"
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
 class AES
 {
 public:
-    vector<int> plaintext;
+    unsigned int w[44] = {0};
 
-    void encrypt();
-    void decrypt();
+    void encrypt(vector<unsigned char> &plaintext, vector<unsigned char> &key, int MODE);
+    void decrypt(vector<unsigned char> &ciphertext, vector<unsigned char> &key, int MODE);
 
-    // encrypt
-    int hexReplace(unsigned char p);
-    void RowShift(vector<unsigned char> &v);
-    void ColumnMix(vector<unsigned char> &v);
+    // Step 0
+    void keyExpand(vector<unsigned char> &key);
+    unsigned int T(unsigned int A, unsigned char idx);
 
-    // decrypt
-    int ReHexReplace(unsigned char p);
-    void ReRowShift(vector<unsigned char> &v);
-    void ReColumnMix(vector<unsigned char> &v);
+    // Step 1
+    unsigned char subHex(unsigned char p);
+    unsigned char reSubHex(unsigned char p);
+
+    // Step 2
+    void shiftRows(vector<unsigned char> &v);
+    void reShiftRows(vector<unsigned char> &v);
+
+    // Step 3
     void multiplyMatrices(
         vector<vector<unsigned char>>& A,
         vector<vector<unsigned char>>& B,
         vector<vector<unsigned char>>& C);
-    unsigned char gfadd(unsigned char x, unsigned char y);
+    unsigned char GFM(unsigned char count, unsigned char y);
+    unsigned char X(unsigned char count, unsigned char odd, unsigned char y);
+    unsigned char GFMultiply(unsigned char x, unsigned char y);
+
+
+    void enColumnMix(vector<unsigned char> &v);
+    void deColumnMix(vector<unsigned char> &v);
+    void columnMix(vector<vector<unsigned char>> matrics, vector<unsigned char> &v);
+
+    // Step 4
+    void rotXor(vector<unsigned char> &v, unsigned char i);
+
+
+
+
 };
-
-
 
 #endif //AES_H

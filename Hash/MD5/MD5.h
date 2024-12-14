@@ -5,6 +5,7 @@
 #ifndef MD5_H
 #define MD5_H
 
+const int MD5_DIGEST_LENGTH = 16;
 
 
 class MD5 {
