@@ -22,7 +22,17 @@ add_executable(CryptoLib main.cpp
         Symmetric/XXTEA/XXTEA.cpp
         Symmetric/XXTEA/XXTEA.h
         Asymmetric/RSA/RSA.cpp
-        Asymmetric/RSA/RSA.h)
+        Asymmetric/RSA/RSA.h
+        Symmetric/AES/test_AES.cpp
+        Hash/MD5/test_MD5.cpp
+        Hash/SHA1/test_SHA1.cpp
+        Hash/SHA256/test_SHA256.cpp
+        Symmetric/TEA/test_TEA.cpp
+        Symmetric/XTEA/test_XTEA.cpp
+        Symmetric/XXTEA/test_XXTEA.cpp
+        Tools/test_Tools.cpp
+        Asymmetric/RSA/test_RSA.cpp
+)
 
 add_subdirectory(./googletest-1.15.2)
 include_directories(${PROJECT_SOURCE_DIR}/src/include ./googletest1.15.2/include)
