@@ -3,7 +3,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "lib/libgmock.a"
+			"path" : "lib/libgmock_main.a"
 		}
 	],
 	"backtrace" : 3,
@@ -33,7 +33,7 @@
 			{
 				"command" : 2,
 				"file" : 1,
-				"line" : 97,
+				"line" : 100,
 				"parent" : 0
 			},
 			{
@@ -63,7 +63,7 @@
 			{
 				"command" : 5,
 				"file" : 1,
-				"line" : 98,
+				"line" : 101,
 				"parent" : 0
 			},
 			{
@@ -96,21 +96,23 @@
 			[
 				{
 					"backtrace" : 7,
-					"path" : "C:/Users/YuSec/CLionProjects/CryptoLib/googletest-1.15.2/googlemock/include"
-				},
-				{
-					"backtrace" : 7,
-					"path" : "C:/Users/YuSec/CLionProjects/CryptoLib/googletest-1.15.2/googlemock"
+					"isSystem" : true,
+					"path" : "D:/sourceCode/CryptoLib/googletest-1.15.2/googlemock/include"
 				},
 				{
 					"backtrace" : 7,
 					"isSystem" : true,
-					"path" : "C:/Users/YuSec/CLionProjects/CryptoLib/googletest-1.15.2/googletest/include"
+					"path" : "D:/sourceCode/CryptoLib/googletest-1.15.2/googlemock"
 				},
 				{
 					"backtrace" : 7,
 					"isSystem" : true,
-					"path" : "C:/Users/YuSec/CLionProjects/CryptoLib/googletest-1.15.2/googletest"
+					"path" : "D:/sourceCode/CryptoLib/googletest-1.15.2/googletest/include"
+				},
+				{
+					"backtrace" : 7,
+					"isSystem" : true,
+					"path" : "D:/sourceCode/CryptoLib/googletest-1.15.2/googletest"
 				}
 			],
 			"language" : "CXX",
@@ -133,9 +135,13 @@
 		{
 			"backtrace" : 6,
 			"id" : "gtest::@c6f604ca7cdfe438c043"
+		},
+		{
+			"backtrace" : 6,
+			"id" : "gmock::@1c993c1d52f967dc5d34"
 		}
 	],
-	"id" : "gmock::@1c993c1d52f967dc5d34",
+	"id" : "gmock_main::@1c993c1d52f967dc5d34",
 	"install" : 
 	{
 		"destinations" : 
@@ -150,8 +156,8 @@
 			"path" : "C:/Program Files (x86)/CryptoLib"
 		}
 	},
-	"name" : "gmock",
-	"nameOnDisk" : "libgmock.a",
+	"name" : "gmock_main",
+	"nameOnDisk" : "libgmock_main.a",
 	"paths" : 
 	{
 		"build" : "googletest-1.15.2/googlemock",
@@ -172,7 +178,7 @@
 		{
 			"backtrace" : 3,
 			"compileGroupIndex" : 0,
-			"path" : "googletest-1.15.2/googlemock/src/gmock-all.cc",
+			"path" : "googletest-1.15.2/googlemock/src/gmock_main.cc",
 			"sourceGroupIndex" : 0
 		}
 	],

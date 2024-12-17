@@ -5,7 +5,6 @@
 #include "AES.h"
 #include "gtest/gtest.h"
 
-#define AES_TEST 0x1
 
 #ifdef AES_TEST
 TEST(TestAES, TestColumnMix) {

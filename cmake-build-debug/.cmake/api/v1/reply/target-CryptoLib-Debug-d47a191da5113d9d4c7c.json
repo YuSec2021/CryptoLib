@@ -59,21 +59,21 @@
 			[
 				{
 					"backtrace" : 3,
-					"path" : "C:/Users/YuSec/CLionProjects/CryptoLib/src/include"
+					"path" : "D:/sourceCode/CryptoLib/src/include"
 				},
 				{
 					"backtrace" : 3,
-					"path" : "C:/Users/YuSec/CLionProjects/CryptoLib/./googletest1.15.2/include"
+					"path" : "D:/sourceCode/CryptoLib/./googletest1.15.2/include"
 				},
 				{
 					"backtrace" : 2,
 					"isSystem" : true,
-					"path" : "C:/Users/YuSec/CLionProjects/CryptoLib/googletest-1.15.2/googletest/include"
+					"path" : "D:/sourceCode/CryptoLib/googletest-1.15.2/googletest/include"
 				},
 				{
 					"backtrace" : 2,
 					"isSystem" : true,
-					"path" : "C:/Users/YuSec/CLionProjects/CryptoLib/googletest-1.15.2/googletest"
+					"path" : "D:/sourceCode/CryptoLib/googletest-1.15.2/googletest"
 				}
 			],
 			"language" : "CXX",

@@ -89,11 +89,11 @@
 			[
 				{
 					"backtrace" : 6,
-					"path" : "C:/Users/YuSec/CLionProjects/CryptoLib/googletest-1.15.2/googletest/include"
+					"path" : "D:/sourceCode/CryptoLib/googletest-1.15.2/googletest/include"
 				},
 				{
 					"backtrace" : 6,
-					"path" : "C:/Users/YuSec/CLionProjects/CryptoLib/googletest-1.15.2/googletest"
+					"path" : "D:/sourceCode/CryptoLib/googletest-1.15.2/googletest"
 				}
 			],
 			"language" : "CXX",
