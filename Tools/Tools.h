@@ -15,9 +15,16 @@ using namespace std;
 class Tools
 {
 public:
-    static string charToHex(char c);
+    static string charToHex(unsigned char c);
     static vector<vector<unsigned char>> convertToVectorOfVectors(const vector<unsigned char>& original);
     static string toHexString(vector<unsigned char> &vec);
+    static unsigned int hexStringToInt(string str, int format);
+
+    static vector<unsigned char> left_shift(vector<unsigned char> vec, size_t shift);
+
+    static vector<unsigned char> right_shift(vector<unsigned char> vec, size_t shift);
+
+    static void print_hex(const vector<unsigned char> &vec);
 };
 
 

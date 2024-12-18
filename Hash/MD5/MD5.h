@@ -6,6 +6,8 @@
 #define MD5_H
 
 #include <vector>
+#include "../../Tools/Tools.h"
+
 using namespace std;
 
 const int MD5_DIGEST_LENGTH = 16;
@@ -17,7 +19,10 @@ const unsigned int D = 0x10325476;
 
 class MD5 {
 public:
+    size_t check(unsigned char a);
     void padding(vector<unsigned char> &data);
+
+    void blockText(vector<unsigned char> &data);
 
     // step 1
     unsigned int F(unsigned int a, unsigned int b, unsigned int c);
