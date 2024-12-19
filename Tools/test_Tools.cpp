@@ -26,7 +26,6 @@ TEST(TestTools, TesthexStringToInt) {
     cout << "set 16, res:" << Tools::hexStringToInt(str, 16) << endl;
 }
 
-
 TEST(TestTools, TestLeftShift) {
     /*vector<unsigned char> num = {0x12, 0x34, 0x56, 0x78};
     cout << "Original: ";

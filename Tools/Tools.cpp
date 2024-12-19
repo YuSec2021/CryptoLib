@@ -45,13 +45,13 @@ vector<unsigned char> Tools::left_shift(std::vector<unsigned char> vec, size_t s
     size_t byte_shift = shift / 8; // 移动的字节数
     size_t bit_shift = shift % 8;  // 字节内移动的位数
 
-
+    // 创建并初始化结果容器
     std::vector<unsigned char> result(vec.size() + byte_shift, 0);
 
     for (size_t i = 0; i < vec.size(); ++i) {
-        result[i] |= (vec[i] << bit_shift);
+        result[i] |= (vec[i] << bit_shift);  // 第i个字节左移n位
         if (i + 1 < vec.size()) {
-            result[i] |= (vec[i + 1] >> (8 - bit_shift));
+            result[i] |= (vec[i + 1] >> (8 - bit_shift)); // 第i+1个字节右移8-n位
         }
     }
 
@@ -59,14 +59,6 @@ vector<unsigned char> Tools::left_shift(std::vector<unsigned char> vec, size_t s
         result.insert(result.begin(), 1); // 在最前面插入一个字节
         result[0] = (vec[0] >> (8 - bit_shift));
     }
-
-    // // 移除前导零字节 (如果存在)
-    // size_t first_non_zero = 0;
-    // while (first_non_zero < result.size() -1 && result[first_non_zero] == 0) {
-    //     first_non_zero++;
-    // }
-    // result.erase(result.begin(), result.begin() + first_non_zero);
-
 
     return result;
 }
