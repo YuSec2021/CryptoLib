@@ -4,6 +4,8 @@
 
 #include "MD5.h"
 
+#include <cstdint>
+
 size_t MD5::check(unsigned char a) {
     for (size_t i = 1; i < 8; i++) {
         if (a >> i && a >> (i+1) == 0) {
@@ -14,7 +16,7 @@ size_t MD5::check(unsigned char a) {
 }
 
 void MD5::padding(vector<unsigned char> &data) {
-    size_t originalSize = data.size();
+    uint64_t originalSize = data.size();
     unsigned int res = (data.size() - 1) * 8 + this->check(data[0]);
     res %= 512;
     size_t bits = 0;
@@ -31,16 +33,18 @@ void MD5::padding(vector<unsigned char> &data) {
     data = Tools::left_shift(data, bits);
 
     // 插入原始信息长度
-    data.insert(data.end(), 8, 0);
+    vector<unsigned char> MessageSize = Tools::uint64ToVector(originalSize);
+    data.insert(data.end(), MessageSize.begin(), MessageSize.end());
+
 }
 
 void MD5::blockText(vector<unsigned char> &data) {
     size_t groupCount = data.size() * 8 / 512;
 
     vector<vector<unsigned char>> groups(groupCount);
-    for (size_t i = 0; i < groupCount; i++) {
-        groups[i] =
-    }
+    // for (size_t i = 0; i < groupCount; i++) {
+    //     groups[i] =
+    // }
 }
 
 

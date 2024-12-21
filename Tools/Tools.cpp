@@ -31,6 +31,17 @@ string Tools::toHexString(vector<unsigned char>& vec) {
     return oss.str();
 }
 
+vector<unsigned char> Tools::uint64ToVector(uint64_t value) {
+    vector<unsigned char> vec(8); // 创建一个大小为8的vector，足够存放64位数据
+
+    // 将uint64_t的每个字节提取到vector中
+    for (size_t i = 0; i < 8; ++i) {
+        vec[i] = static_cast<unsigned char>((value >> ((7 - i) * 8)) & 0xFF); // 提取每个字节
+    }
+
+    return vec;
+}
+
 unsigned int Tools::hexStringToInt(string str, int format) {
     unsigned int res = stoi(str, nullptr, format);
     return res;
