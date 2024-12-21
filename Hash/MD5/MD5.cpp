@@ -41,10 +41,11 @@ void MD5::padding(vector<unsigned char> &data) {
 void MD5::blockText(vector<unsigned char> &data) {
     size_t groupCount = data.size() * 8 / 512;
 
-    vector<vector<unsigned char>> groups(groupCount);
-    // for (size_t i = 0; i < groupCount; i++) {
-    //     groups[i] =
-    // }
+    // 根据N*512 创建N个外层vector，内层则统一为512
+    vector<vector<uint64_t>> groups(groupCount);
+    for (size_t i = 0; i < groupCount; i++) {
+        groups[i] = vector<uint64_t>(8);
+    }
 }
 
 
