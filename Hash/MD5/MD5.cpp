@@ -75,7 +75,6 @@ void MD5::padding(vector<uint8_t> &data) {
 
 vector<vector<uint32_t>> MD5::blockText(vector<uint8_t> &data) {
     size_t groupCount = data.size() * 8 / 512;
-
     vector<vector<uint32_t>> groups(groupCount);
     for (size_t i = 0; i < groupCount; i++) {
         groups[i] = vector<uint32_t>(16, 0);
