@@ -11,12 +11,13 @@ void MD5::init() {
 }
 
 size_t MD5::check(uint8_t a) {
-    for (size_t i = 1; i < 8; i++) {
+    size_t i = 1;
+    for (; i < 8; i++) {
         if (a >> i && a >> (i+1) == 0) {
             return i + 1;
         }
     }
-    return 1;
+    return i;
 }
 
 void MD5::padding_modified(vector<uint8_t> &data) {

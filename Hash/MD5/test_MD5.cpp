@@ -55,7 +55,7 @@ TEST(TestMD5, DISABLED_testBlock) {
 
 TEST(TestMD5, testUpdateByIterator) {
     char input[] = "HelloWorld";
-    testing::StopWatch sw;
+    // testing::StopWatch sw;
     vector<uint8_t> plaintext;
     plaintext.insert(plaintext.end(), input, input+sizeof(input)-1);
 
@@ -64,13 +64,13 @@ TEST(TestMD5, testUpdateByIterator) {
     md5.padding(plaintext);
     // 分组
     vector<vector<uint32_t>> groups = md5.blockText(plaintext);
-    sw.start();
+    // sw.start();
     // Hash
     vector<uint32_t> res = md5.updateIterator(groups);
-    sw.stop();
+    // sw.stop();
 
-    double elapsed_time = sw.ElapsedMillis();
-    cout << "(Iterator)Elapsed Time: " << elapsed_time << " ms" << endl;
+    // double elapsed_time = sw.ElapsedMillis();
+    // cout << "(Iterator)Elapsed Time: " << elapsed_time << " ms" << endl;
     // 输出
     cout << "md5(" << input << ")=";
     for (size_t i = 0; i < res.size(); i++) {
@@ -81,7 +81,7 @@ TEST(TestMD5, testUpdateByIterator) {
 
 TEST(TestMD5, testUpdateByRange) {
     char input[] = "HelloWorld";
-    testing::StopWatch sw;
+    // testing::StopWatch sw;
     // 初始化
     vector<uint8_t> plaintext;
     plaintext.insert(plaintext.end(), input, input+sizeof(input)-1);
@@ -91,18 +91,24 @@ TEST(TestMD5, testUpdateByRange) {
     md5.padding(plaintext);
     // 分组
     vector<vector<uint32_t>> groups = md5.blockText(plaintext);
-    sw.start();
+    // sw.start();
     // Hash
     vector<uint32_t> res = md5.updateRange(groups);
-    sw.stop();
+    // sw.stop();
     // 输出
 
-    double elapsed_time = sw.ElapsedMillis();
-    cout << "(Range)Elapsed Time: " << elapsed_time << " ms" << endl;
+    // double elapsed_time = sw.ElapsedMillis();
+    // cout << "(Range)Elapsed Time: " << elapsed_time << " ms" << endl;
     cout << "md5(" << input << ")=";
     for (size_t i = 0; i < res.size(); i++) {
         cout << hex << res[i];
     }
+}
+
+TEST(TestMD5, testSalt) {
+    char input[] = "HelloWorld";
+
+
 }
 
 

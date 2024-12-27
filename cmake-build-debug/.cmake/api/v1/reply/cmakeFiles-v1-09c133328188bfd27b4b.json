@@ -206,8 +206,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "D:/sourceCode/CryptoLib/cmake-build-debug",
-		"source" : "D:/sourceCode/CryptoLib"
+		"build" : "C:/Users/YuSec/CLionProjects/CryptoLib/cmake-build-debug",
+		"source" : "C:/Users/YuSec/CLionProjects/CryptoLib"
 	},
 	"version" : 
 	{
