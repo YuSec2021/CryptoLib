@@ -15,43 +15,39 @@ using namespace std;
 class AES
 {
 public:
-    unsigned int w[44] = {0};
+    uint32_t w[44] = {0};
 
-    void encrypt(vector<unsigned char> &plaintext, vector<unsigned char> &key, int MODE);
-    void decrypt(vector<unsigned char> &ciphertext, vector<unsigned char> &key, int MODE);
+    void encrypt(vector<uint8_t> &plaintext, vector<uint8_t> &key, int MODE);
+    void decrypt(vector<uint8_t> &ciphertext, vector<uint8_t> &key, int MODE);
 
     // Step 0
-    void keyExpand(vector<unsigned char> &key);
-    unsigned int T(unsigned int A, unsigned char idx);
+    void keyExpand(vector<uint8_t> &key);
+    uint32_t T(uint32_t A, uint8_t idx);
 
     // Step 1
-    unsigned char subHex(unsigned char p);
-    unsigned char reSubHex(unsigned char p);
+    uint8_t subHex(uint8_t p);
+    uint8_t reSubHex(uint8_t p);
 
     // Step 2
-    void shiftRows(vector<unsigned char> &v);
-    void reShiftRows(vector<unsigned char> &v);
+    void shiftRows(vector<uint8_t> &v);
+    void reShiftRows(vector<uint8_t> &v);
 
     // Step 3
     void multiplyMatrices(
-        vector<vector<unsigned char>>& A,
-        vector<vector<unsigned char>>& B,
-        vector<vector<unsigned char>>& C);
-    unsigned char GFM(unsigned char count, unsigned char y);
-    unsigned char X(unsigned char count, unsigned char odd, unsigned char y);
-    unsigned char GFMultiply(unsigned char x, unsigned char y);
+        vector<vector<uint8_t>>& A,
+        vector<vector<uint8_t>>& B,
+        vector<vector<uint8_t>>& C);
+    uint8_t GFM(uint8_t count, uint8_t y);
+    uint8_t X(uint8_t count, uint8_t odd, uint8_t y);
+    uint8_t GFMultiply(uint8_t x, uint8_t y);
 
 
-    void enColumnMix(vector<unsigned char> &v);
-    void deColumnMix(vector<unsigned char> &v);
-    void columnMix(vector<vector<unsigned char>> matrics, vector<unsigned char> &v);
+    void enColumnMix(vector<uint8_t> &v);
+    void deColumnMix(vector<uint8_t> &v);
+    void columnMix(vector<vector<uint8_t>> matrics, vector<uint8_t> &v);
 
     // Step 4
-    void rotXor(vector<unsigned char> &v, unsigned char i);
-
-
-
-
+    void rotXor(vector<uint8_t> &v, uint8_t i);
 };
 
 #endif //AES_H

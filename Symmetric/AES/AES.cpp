@@ -5,7 +5,7 @@
 #include "AES.h"
 
 
-void AES::keyExpand(vector<unsigned char> &key) {
+void AES::keyExpand(vector<uint8_t> &key) {
     for (size_t i = 0; i < 4; i++) {
         this->w[i] = key[4*i] << 24 | key[4*i + 1] << 16 | key[4*i + 2] << 8 | key[4*i + 3];
     }
@@ -19,7 +19,7 @@ void AES::keyExpand(vector<unsigned char> &key) {
     }
 }
 
-unsigned int AES::T(unsigned int A, unsigned char idx) {
+uint32_t AES::T(uint32_t A, uint8_t idx) {
     // 移位操作
     int tmp = A >> 24;
     A = A << 8 | tmp;
@@ -33,22 +33,22 @@ unsigned int AES::T(unsigned int A, unsigned char idx) {
     return A ^ Rcon[idx];
 }
 
-unsigned char AES::subHex(unsigned char p) {
-    unsigned char ridx = p >> 4;
-    unsigned char cidx = p & 0xf;
+uint8_t AES::subHex(uint8_t p) {
+    uint8_t ridx = p >> 4;
+    uint8_t cidx = p & 0xf;
     return s_box[ridx][cidx];
 }
 
-unsigned char AES::reSubHex(unsigned char p) {
-    unsigned char ridx = p >> 4;
-    unsigned char cidx = p & 0xf;
+uint8_t AES::reSubHex(uint8_t p) {
+    uint8_t ridx = p >> 4;
+    uint8_t cidx = p & 0xf;
     return r_s_box[ridx][cidx];
 }
 
-void AES::shiftRows(vector<unsigned char> &v) {
+void AES::shiftRows(vector<uint8_t> &v) {
     // 第0行左移0字节
     // 第一行左移1字节
-    unsigned char tmp = v[1];
+    uint8_t tmp = v[1];
     v[1] = v[5];
     v[5] = v[9];
     v[9] = v[13];
@@ -72,10 +72,10 @@ void AES::shiftRows(vector<unsigned char> &v) {
 
 }
 
-void AES::reShiftRows(vector<unsigned char> &v) {
+void AES::reShiftRows(vector<uint8_t> &v) {
     // 第0行左移0字节
     // 第一行左移1字节
-    unsigned char tmp = v[3];
+    uint8_t tmp = v[3];
     v[3] = v[7];
     v[7] = v[11];
     v[11] = v[15];
@@ -98,8 +98,8 @@ void AES::reShiftRows(vector<unsigned char> &v) {
     v[1] = tmp;
 }
 
-void AES::enColumnMix(vector<unsigned char> &v) {
-    vector<vector<unsigned char>> mixMatrics = {
+void AES::enColumnMix(vector<uint8_t> &v) {
+    vector<vector<uint8_t>> mixMatrics = {
         {2, 3, 1, 1},
         {1, 2, 3, 1},
         {1, 1, 2, 3},
@@ -108,8 +108,8 @@ void AES::enColumnMix(vector<unsigned char> &v) {
     this->columnMix(mixMatrics, v);
 }
 
-void AES::deColumnMix(vector<unsigned char> &v) {
-    vector<vector<unsigned char>> remixMatrics = {
+void AES::deColumnMix(vector<uint8_t> &v) {
+    vector<vector<uint8_t>> remixMatrics = {
         {0xE, 0xB, 0xD, 0x9},
         {0x9, 0xE, 0xB, 0xD},
         {0xD, 0x9, 0xE, 0xB},
@@ -118,9 +118,9 @@ void AES::deColumnMix(vector<unsigned char> &v) {
     this->columnMix(remixMatrics, v);
 }
 
-void AES::multiplyMatrices(vector<vector<unsigned char>>& A, vector<vector<unsigned char>>& B, vector<vector<unsigned char>>& C) {
+void AES::multiplyMatrices(vector<vector<uint8_t>>& A, vector<vector<uint8_t>>& B, vector<vector<uint8_t>>& C) {
     // 初始化结果矩阵C
-    C.resize(4, vector<unsigned char>(4, 0));
+    C.resize(4, vector<uint8_t>(4, 0));
 
     // 矩阵相乘
     for (size_t i = 0; i < 4; i++) {
@@ -132,7 +132,7 @@ void AES::multiplyMatrices(vector<vector<unsigned char>>& A, vector<vector<unsig
     }
 }
 
-unsigned char AES::GFM(unsigned char count, unsigned char y) {
+uint8_t AES::GFM(uint8_t count, uint8_t y) {
     if (count == 1) return y;
     return this->X(count, 0b1000, y)
         ^ this->X(count, 0b100, y)
@@ -140,16 +140,16 @@ unsigned char AES::GFM(unsigned char count, unsigned char y) {
         ^ this->X(count, 0b1, y);
 }
 
-unsigned char AES::X(unsigned char count, unsigned char odd, unsigned char y) {
-    unsigned char tmp = 0;
+uint8_t AES::X(uint8_t count, uint8_t odd, uint8_t y) {
+    uint8_t tmp = 0;
     if (count & odd) {
         tmp ^= this->GFMultiply(log2(odd), y);
     }
     return tmp;
 }
 
-unsigned char AES::GFMultiply(unsigned char count, unsigned char y) {
-    unsigned char mask = y;
+uint8_t AES::GFMultiply(uint8_t count, uint8_t y) {
+    uint8_t mask = y;
     size_t i = 0;
     while (i < count) {
         if (mask & 0x80) {
@@ -162,17 +162,17 @@ unsigned char AES::GFMultiply(unsigned char count, unsigned char y) {
     return mask;
 }
 
-void AES::columnMix(vector<vector<unsigned char>> matrics, vector<unsigned char> &v) {
-    vector<vector<unsigned char>> res;
-    vector<vector<unsigned char>> v2 = Tools::convertToVectorOfVectors(v);
+void AES::columnMix(vector<vector<uint8_t>> matrics, vector<uint8_t> &v) {
+    vector<vector<uint8_t>> res;
+    vector<vector<uint8_t>> v2 = Tools::convertToVectorOfVectors(v);
     this->multiplyMatrices(matrics, v2, res);
     for (size_t i = 0; i < 16; i++) {
         v[i] = res[i % 4][i / 4];
     }
 }
 
-void AES::rotXor(vector<unsigned char> &v, unsigned char i){
-    vector<unsigned char> tmp;
+void AES::rotXor(vector<uint8_t> &v, uint8_t i){
+    vector<uint8_t> tmp;
     for (size_t j = 0; j < 4; j++) {
         for (size_t k = 0; k < 4; k++) {
             tmp.push_back(this->w[4*i + j] >> ((3-k) * 8));
@@ -184,7 +184,7 @@ void AES::rotXor(vector<unsigned char> &v, unsigned char i){
     }
 }
 
-void AES::encrypt(vector<unsigned char> &plaintext, vector<unsigned char> &key, int MODE) {
+void AES::encrypt(vector<uint8_t> &plaintext, vector<uint8_t> &key, int MODE) {
     switch (MODE) {
         case AES128: {
             this->keyExpand(key);
@@ -222,7 +222,7 @@ void AES::encrypt(vector<unsigned char> &plaintext, vector<unsigned char> &key, 
     }
 }
 
-void AES::decrypt(vector<unsigned char> &ciphertext, vector<unsigned char> &key, int MODE) {
+void AES::decrypt(vector<uint8_t> &ciphertext, vector<uint8_t> &key, int MODE) {
     switch (MODE) {
         case AES128: {
             this->keyExpand(key);

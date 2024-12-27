@@ -60,4 +60,9 @@ TEST(TestTools, TestRightShift) {
 
 }
 
+TEST(TestTools, TestRotate) {
+    ASSERT_EQ(0x34567812, Tools::rotate_left(0x12345678, 8));
+    ASSERT_EQ(0x78123456, Tools::rotate_right(0x12345678, 8));
+}
+
 #endif

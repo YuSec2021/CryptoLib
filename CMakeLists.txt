@@ -32,9 +32,10 @@ add_executable(CryptoLib main.cpp
         Symmetric/XXTEA/test_XXTEA.cpp
         Tools/test_Tools.cpp
         Asymmetric/RSA/test_RSA.cpp
+        Hash/constants.h
 )
 
 add_subdirectory(./googletest-1.15.2)
-include_directories(${PROJECT_SOURCE_DIR}/src/include ./googletest1.15.2/include)
+include_directories(${PROJECT_SOURCE_DIR}/src/include ./googletest1.15.2/googletest/include)
 link_directories(${PROJECT_SOURCE_DIR}/lib ${PROJECT_SOURCE_DIR}/googletest-1.15.2)
 target_link_libraries(${PROJECT_NAME} gtest)

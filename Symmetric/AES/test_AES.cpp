@@ -11,7 +11,7 @@ TEST(TestAES, TestColumnMix) {
     cout << "Testing Column Mix" << endl;
     AES aes;
 
-    vector<unsigned char> data = {
+    vector<uint8_t> data = {
         0xC9, 0x7A, 0x63, 0xB0,
         0xE5, 0xF2, 0x9C, 0xA7,
         0xFD, 0x78, 0x26, 0x82,
@@ -20,15 +20,15 @@ TEST(TestAES, TestColumnMix) {
 
     aes.enColumnMix(data);
 
-    vector<vector<unsigned char>> remixMatrics = {
+    vector<vector<uint8_t>> remixMatrics = {
         {0xE, 0xB, 0xD, 0x9},
         {0x9, 0xE, 0xB, 0xD},
         {0xD, 0x9, 0xE, 0xB},
         {0xB, 0xD, 0x9, 0xE}
     };
 
-    vector<vector<unsigned char>> res = Tools::convertToVectorOfVectors(data);
-    vector<vector<unsigned char>> res2;
+    vector<vector<uint8_t>> res = Tools::convertToVectorOfVectors(data);
+    vector<vector<uint8_t>> res2;
     aes.multiplyMatrices(remixMatrics, res, res2);
     system("pause");
 }
@@ -37,20 +37,20 @@ TEST(TestAES, TestEncAndDec) {
     AES aes;
 
     char a[] = "abcdefghijklmnop";
-    // vector<unsigned char> plaintext;
+    // vector<uint8_t> plaintext;
     // for (int i = 0; i < sizeof(a); i++) {
-    //     unsigned char tmp = stoi(Tools::charToHex(a[i]), 0, 16);
+    //     uint8_t tmp = stoi(Tools::charToHex(a[i]), 0, 16);
     //     plaintext.push_back(tmp);
     // }
 
-    vector<unsigned char> plaintext = {
+    vector<uint8_t> plaintext = {
         0x61, 0x62, 0x63, 0x64,
         0x65, 0x66, 0x67, 0x68,
         0x69, 0x6A, 0x6B, 0x6C,
         0x6D, 0x6E, 0x6F, 0x70
     };
 
-    vector<unsigned char> key = {
+    vector<uint8_t> key = {
         0x61, 0x62, 0x63, 0x64,
         0x65, 0x66, 0x67, 0x68,
         0x69, 0x6A, 0x6B, 0x6C,
@@ -64,7 +64,7 @@ TEST(TestAES, TestEncAndDec) {
     string resr = Tools::toHexString(plaintext);
     cout << "Encrypt Result: " << resr << endl;
 
-    vector<unsigned char> ciphertext = {
+    vector<uint8_t> ciphertext = {
         0xa9, 0x13, 0x29, 0xaf,
         0x99, 0xa7, 0x8d, 0x02,
         0xae, 0xc1, 0x7c, 0x50,
