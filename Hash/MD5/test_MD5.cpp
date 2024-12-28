@@ -10,8 +10,6 @@
 
 #include "MD5.h"
 
-#define MD5_TEST
-
 using namespace std;
 
 #ifdef MD5_TEST
