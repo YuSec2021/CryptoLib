@@ -11,7 +11,8 @@
 using namespace std;
 
 class SHA1 {
-    void padding();
+public:
+    void padding(vector<uint8_t> &data);
 
     void update();
 };

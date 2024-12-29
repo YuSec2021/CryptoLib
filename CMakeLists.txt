@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.29.6)
+cmake_minimum_required(VERSION 3.30)
 project(CryptoLib)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -36,6 +36,6 @@ add_executable(CryptoLib main.cpp
 )
 
 add_subdirectory(./googletest-1.15.2)
-include_directories(${PROJECT_SOURCE_DIR}/src/include ./googletest1.15.2/googletest/include)
+include_directories(${PROJECT_SOURCE_DIR}/src/include ./googletest1.15.2/include)
 link_directories(${PROJECT_SOURCE_DIR}/lib ${PROJECT_SOURCE_DIR}/googletest-1.15.2)
 target_link_libraries(${PROJECT_NAME} gtest)

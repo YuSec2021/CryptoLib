@@ -19,6 +19,11 @@ TEST(TestSHA1, testPadding) {
     plaintext.insert(plaintext.end(), message, message+sizeof(message)-1);
     string hexString = Tools::toHexString(plaintext);
     cout << "HexString:" << hexString << endl;
+
+    SHA1 sha1;
+    sha1.padding(plaintext);
+    hexString = Tools::toHexString(plaintext);
+    cout << "Padding:" << hexString << endl;
 }
 
 #endif
