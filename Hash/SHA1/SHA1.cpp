@@ -35,6 +35,22 @@ void SHA1::padding(vector<uint8_t> &data) {
 
 }
 
+void SHA1::initialize(vector<uint8_t> &data) {
+    size_t nGroups = data.size() / 64;
+
+    vector<vector<uint32_t>> groups(nGroups, vector<uint32_t>(16, 0));
+    for (size_t i = 0; i < nGroups; i++) {
+        for (size_t j = 0; j < 16; j++) {
+            groups[i][j] = *(uint32_t*)&data[i * 16 + j * 4];
+        }
+    }
+}
+
+void SHA1::genW(vector<uint32_t> &group) {
+    vector<uint32_t> W(80, 0);
+
+}
+
 void SHA1::update() {
 
 }

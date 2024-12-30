@@ -7,13 +7,17 @@
 
 #include <vector>
 #include "../../Tools/Tools.h"
+#include "../constants.h"
 
+using namespace sha1;
 using namespace std;
 
 class SHA1 {
 public:
     void padding(vector<uint8_t> &data);
+    void initialize(vector<uint8_t> &data);
 
+    void genW(vector<uint32_t> &data);
     void update();
 };
 

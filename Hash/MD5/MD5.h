@@ -7,6 +7,8 @@
 
 #include <vector>
 #include "../../Tools/Tools.h"
+#include "../constants.h"
+
 
 // 定义四个非线性函数
 #define F(x, y, z) (((x) & (y)) | ((~(x) & (z))))
@@ -15,6 +17,7 @@
 #define I(x, y, z) (y ^ (x | ~z))
 
 using namespace std;
+using namespace md5;
 
 const int MD5_DIGEST_LENGTH = 16;
 
