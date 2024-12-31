@@ -68,6 +68,8 @@ namespace sha1 {
     const uint32_t C = 0x98BADCFE;
     const uint32_t D = 0x10325476;
     const uint32_t E = 0xC3D2E1F0;
+
+    const uint32_t K[4] = {0x5A827999, 0x6ED9EBA1, 0x8F1BBCDC, 0xCA62C1D6};
 }
 
 #endif //CONSTANTS_H

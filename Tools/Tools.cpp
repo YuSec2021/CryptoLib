@@ -120,5 +120,9 @@ uint32_t Tools::rotate_right(uint32_t value, uint8_t shift) {
     return (value >> shift) | (value << (bits - shift));
 }
 
-
-
+uint32_t Tools::swapEndian(uint32_t x) {
+    return ((x >> 24) & 0xff) |
+        ((x >> 8) & 0xff00) |
+        ((x << 8) & 0xff0000) |
+        ((x << 24) & 0xff000000);
+}

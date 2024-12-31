@@ -14,14 +14,23 @@ using namespace std;
 
 class SHA1 {
 public:
-    void padding(vector<uint8_t> &data);
-    void initialize(vector<uint8_t> &data);
+    vector<vector<uint32_t>> groups;
+    vector<uint32_t> res;
 
-    void genW(vector<uint32_t> &data);
-    uint32_t f(uint32_t b, uint32_t c, uint32_t d, size_t t);
+    // step 0
+    void init();
+
+    // Step 1
+    void padding(vector<uint8_t> &data);
+
+    // Step 2
+    void initializing(vector<uint8_t> &data);
+    vector<uint32_t> genW(vector<uint32_t> &data);
+    uint32_t F(uint32_t x, uint32_t y, uint32_t z, size_t t);
+
+    // Step 3
+    void rotFunc(vector<uint32_t> &res, size_t t);
     void update();
 };
-
-
 
 #endif //SHA1_H
