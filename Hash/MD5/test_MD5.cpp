@@ -10,6 +10,7 @@
 
 #include "MD5.h"
 
+#define MD5_TEST
 using namespace std;
 
 #ifdef MD5_TEST
@@ -91,7 +92,7 @@ TEST(TestMD5, testUpdateByRange) {
     vector<vector<uint32_t>> groups = md5.blockText(plaintext);
     // sw.start();
     // Hash
-    vector<uint32_t> res = md5.updateRange(groups);
+    vector<uint32_t> res = md5.updateIterator(groups);
     // sw.stop();
     // 输出
 
@@ -109,5 +110,25 @@ TEST(TestMD5, testSalt) {
 
 }
 
+TEST(TestMD5, testRound2) {
+    char input[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    // 初始化
+    vector<uint8_t> plaintext;
+    plaintext.insert(plaintext.end(), input, input+sizeof(input)-1);
+
+    // 填充
+    MD5 md5;
+    md5.padding(plaintext);
+    // 分组
+    vector<vector<uint32_t>> groups = md5.blockText(plaintext);
+    // Hash
+    vector<uint32_t> res = md5.updateRange(groups);
+    // 输出
+
+    cout << "md5(" << input << ")=";
+    for (size_t i = 0; i < res.size(); i++) {
+        cout << hex << res[i];
+    }
+}
 
 #endif

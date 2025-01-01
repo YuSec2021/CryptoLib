@@ -58,8 +58,8 @@ TEST(TestSHA1, testUpdate) {
     // 散列
     sha1.update();
     cout << "sha1(" << message << ")=" ;
-    for (size_t i = 0; i < sha1._res.size(); i++) {
-        cout << hex << sha1._res[i];
+    for (size_t i = 0; i < sha1.res.size(); i++) {
+        cout << hex << sha1.res[i];
     }
 
     cout << endl;

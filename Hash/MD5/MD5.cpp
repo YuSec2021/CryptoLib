@@ -109,7 +109,7 @@ void MD5::decode(vector<uint32_t> &groups) {
 }
 
 vector<uint32_t> MD5::updateIterator(vector<vector<uint32_t>> &groups) {
-    // 将初始幻数存入
+    // 初始化结果数组，将初始幻数存入
     vector<uint32_t> res = {A, B, C, D};
     // 将输入信息切换成小端序：abcd->0x34333231
     for (size_t i = 0; i < groups.size(); i++) {
@@ -118,13 +118,14 @@ vector<uint32_t> MD5::updateIterator(vector<vector<uint32_t>> &groups) {
 
     size_t i = 0;
     while (i < groups.size()) {
-        this->transByIterator(groups[i], res[0], res[1], res[2], res[3]);
+        uint32_t tmp_A = res[0];
+        uint32_t tmp_B = res[1];
+        uint32_t tmp_C = res[2];
+        uint32_t tmp_D = res[3];
+        this->transByIterator(groups[i], tmp_A, tmp_B, tmp_C, tmp_D);
+        res[0] += tmp_A; res[1] += tmp_B; res[2] += tmp_C; res[3] += tmp_D;
         i++;
     }
-    res[0] += A;
-    res[1] += B;
-    res[2] += C;
-    res[3] += D;
 
     // Hash后切回大端序并返回
     this->decode(res);
@@ -142,13 +143,14 @@ vector<uint32_t> MD5::updateRange(vector<vector<uint32_t>> &groups) {
 
     size_t i = 0;
     while (i < groups.size()) {
-        this->transByRange(groups[i], res);
+        vector<uint32_t> tmp = res;
+        this->transByRange(groups[i], tmp);
+        for (size_t j = 0; j < 4; j++) {
+            res[j] += tmp[j];
+        }
         i++;
     }
-    res[0] += A;
-    res[1] += B;
-    res[2] += C;
-    res[3] += D;
+
 
     // Hash后切回大端序并返回
     this->decode(res);
