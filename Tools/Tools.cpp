@@ -120,9 +120,21 @@ uint32_t Tools::rotate_right(uint32_t value, uint8_t shift) {
     return (value >> shift) | (value << (bits - shift));
 }
 
+// 切换端序
 uint32_t Tools::swapEndian(uint32_t x) {
     return ((x >> 24) & 0xff) |
         ((x >> 8) & 0xff00) |
         ((x << 8) & 0xff0000) |
         ((x << 24) & 0xff000000);
+}
+
+uint64_t Tools::swapEndian64(uint64_t x) {
+    return ((x >> 56) & 0xff) |
+        ((x >> 40) & 0xff00) |
+        ((x >> 24) & 0xff0000) |
+        ((x >> 8) & 0xff000000) |
+        ((x << 8) & 0xff00000000) |
+        ((x << 24) & 0xff0000000000) |
+        ((x << 40) & 0xff000000000000) |
+        ((x << 56) & 0xff00000000000000);
 }

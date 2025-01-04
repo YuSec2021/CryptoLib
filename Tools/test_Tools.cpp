@@ -7,6 +7,7 @@
 
 using namespace std;
 
+
 #ifdef TOOLS_TEST
 TEST(TestTools, TestcharToHex) {
 
@@ -65,4 +66,9 @@ TEST(TestTools, TestRotate) {
     ASSERT_EQ(0x78123456, Tools::rotate_right(0x12345678, 8));
 }
 
+
+TEST(TestTools, swap) {
+    ASSERT_EQ(0x78563412, Tools::swapEndian(0x12345678));
+    ASSERT_EQ(0x8877665544332211, Tools::swapEndian64(0x1122334455667788));
+}
 #endif

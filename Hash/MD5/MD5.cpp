@@ -58,18 +58,8 @@ void MD5::padding(vector<uint8_t> &data) {
     paddingBits -= 1;
     data = Tools::left_shift(data, paddingBits);
 
-    // 确认有效信息位
-    uint64_t uBits = 8;
-    while (uBits < 64) {
-        if (nBits >> uBits) {
-            uBits += 8;
-            continue;
-        }
-        nBits = nBits << (64-uBits);
-    }
-
     // 插入原始信息长度
-    vector<uint8_t> MessageSize = Tools::uint64ToVector(nBits);
+    vector<uint8_t> MessageSize = Tools::uint64ToVector(Tools::swapEndian64(nBits));
     data.insert(data.end(), MessageSize.begin(), MessageSize.end());
 
 }
@@ -81,7 +71,7 @@ vector<vector<uint32_t>> MD5::blockText(vector<uint8_t> &data) {
         groups[i] = vector<uint32_t>(16, 0);
         for (size_t j = 0; j < 16; j++) {
             for (size_t k = 0; k < 4; k++) {
-                groups[i][j] |= (uint32_t)data[j*4+k] << ((3-k)*8);
+                groups[i][j] |= (uint32_t)data[i*64+j*4+k] << ((3-k)*8);
             }
         }
     }
@@ -89,22 +79,15 @@ vector<vector<uint32_t>> MD5::blockText(vector<uint8_t> &data) {
     return groups;
 }
 
-uint32_t MD5::swapEndian(uint32_t x) {
-    return ((x >> 24) & 0xff) |
-        ((x >> 8) & 0xff00) |
-        ((x << 8) & 0xff0000) |
-        ((x << 24) & 0xff000000);
-}
-
 void MD5::encode(vector<uint32_t> &groups) {
     for (size_t i = 0; i < groups.size(); i++) {
-        groups[i] = swapEndian(groups[i]);
+        groups[i] = Tools::swapEndian(groups[i]);
     }
 }
 
 void MD5::decode(vector<uint32_t> &groups) {
     for (size_t i = 0; i < groups.size(); i++) {
-        groups[i] = swapEndian(groups[i]);
+        groups[i] = Tools::swapEndian(groups[i]);
     }
 }
 
@@ -118,12 +101,12 @@ vector<uint32_t> MD5::updateIterator(vector<vector<uint32_t>> &groups) {
 
     size_t i = 0;
     while (i < groups.size()) {
-        uint32_t tmp_A = res[0];
-        uint32_t tmp_B = res[1];
-        uint32_t tmp_C = res[2];
-        uint32_t tmp_D = res[3];
-        this->transByIterator(groups[i], tmp_A, tmp_B, tmp_C, tmp_D);
-        res[0] += tmp_A; res[1] += tmp_B; res[2] += tmp_C; res[3] += tmp_D;
+        uint32_t _A = res[0];
+        uint32_t _B = res[1];
+        uint32_t _C = res[2];
+        uint32_t _D = res[3];
+        this->transByIterator(groups[i], _A, _B, _C, _D);
+        res[0] += _A; res[1] += _B; res[2] += _C; res[3] += _D;
         i++;
     }
 
@@ -150,7 +133,6 @@ vector<uint32_t> MD5::updateRange(vector<vector<uint32_t>> &groups) {
         }
         i++;
     }
-
 
     // Hash后切回大端序并返回
     this->decode(res);
@@ -232,7 +214,7 @@ void MD5::transByIterator(vector<uint32_t> &v, uint32_t &A, uint32_t &B, uint32_
 }
 
 void MD5::transByRange(vector<uint32_t> &v, vector<uint32_t> &res) {
-
+    RoundFunction roundFunctions[] = {&MD5::FF, &MD5::GG, &MD5::HH, &MD5::II};
 
     for (size_t i = 0; i < 4; i++) {
         uint32_t* pseudo = pseudoRandom[i];
@@ -240,47 +222,14 @@ void MD5::transByRange(vector<uint32_t> &v, vector<uint32_t> &res) {
         uint8_t* groupIndex = groupsIndex[i];
 
         for (size_t k = v.size(); k > 0 ; k--) {
-            if (i == 0) {
-                res[k % 4] = this->FF(
-                    res[k % 4],
-                    res[(k + 1) % 4],
-                    res[(k + 2) % 4],
-                    res[(k + 3) % 4],
-                    v[groupIndex[16 - k]],
-                    pseudo[16 - k],
-                    shift[(16 - k) % 4]);
-            }
-            else if (i == 1){
-                res[k % 4] = this->GG(
-                    res[k % 4],
-                    res[(k + 1) % 4],
-                    res[(k + 2) % 4],
-                    res[(k + 3) % 4],
-                    v[groupIndex[16 - k]],
-                    pseudo[16 - k],
-                    shift[(16 - k) % 4]);
-            }
-            else if (i == 2) {
-                res[k % 4] = this->HH(
-                    res[k % 4],
-                    res[(k + 1) % 4],
-                    res[(k + 2) % 4],
-                    res[(k + 3) % 4],
-                    v[groupIndex[16 - k]],
-                    pseudo[16 - k],
-                    shift[(16 - k) % 4]);
-            }
-            else {
-                res[k % 4] = this->II(
-                    res[k % 4],
-                    res[(k + 1) % 4],
-                    res[(k + 2) % 4],
-                    res[(k + 3) % 4],
-                    v[groupIndex[16 - k]],
-                    pseudo[16 - k],
-                    shift[(16 - k) % 4]);
-            }
-
+            res[k % 4] = (this->*roundFunctions[i])(
+                res[k % 4],
+                res[(k + 1) % 4],
+                res[(k + 2) % 4],
+                res[(k + 3) % 4],
+                v[groupIndex[16 - k]],
+                pseudo[16 - k],
+                shift[(16 - k) % 4]);
         }
     }
 }

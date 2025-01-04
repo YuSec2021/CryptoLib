@@ -8,7 +8,11 @@
 
 
 class SHA256 {
-
+public:
+    void init();
+    void padding();
+    void update();
+    void finalize();
 };
 
 

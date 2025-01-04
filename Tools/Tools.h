@@ -31,6 +31,7 @@ public:
 
     // 切换端序
     static uint32_t swapEndian(uint32_t x);
+    static uint64_t swapEndian64(uint64_t x);
 
     // 循环移位
     static uint32_t rotate_left(uint32_t value, uint8_t shift);

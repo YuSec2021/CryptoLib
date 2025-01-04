@@ -24,16 +24,6 @@ void SHA1::padding(vector<uint8_t> &data) {
     paddingBits -= 1;
     data = Tools::left_shift(data, paddingBits);
 
-    // 确认有效信息位
-    // uint64_t uBits = 8;
-    // while (uBits < 64) {
-    //     if (nBits >> uBits) {
-    //         uBits += 8;
-    //         continue;
-    //     }
-    //     nBits = nBits << (64-uBits);
-    // }
-
     // 插入原始信息长度
     vector<uint8_t> MessageSize = Tools::uint64ToVector(nBits);
     data.insert(data.end(), MessageSize.begin(), MessageSize.end());
@@ -44,7 +34,7 @@ void SHA1::initializing(vector<uint8_t> &data) {
     this->groups = vector<vector<uint32_t>>(nGroups, vector<uint32_t>(16, 0));
     for (size_t i = 0; i < nGroups; i++) {
         for (size_t j = 0; j < 16; j++) {
-            this->groups[i][j] = *(uint32_t*)&data[i * 16 + j * 4];
+            this->groups[i][j] = *(uint32_t*)&data[i * 64 + j * 4];
         }
     }
 }
@@ -75,26 +65,34 @@ uint32_t SHA1::F(uint32_t x, uint32_t y, uint32_t z, size_t t) {
 void SHA1::update() {
     this->res = {A, B, C, D, E};
     for (size_t n = 0; n < this->groups.size(); n++) {
-
+        uint32_t _A = res[0];
+        uint32_t _B = res[1];
+        uint32_t _C = res[2];
+        uint32_t _D = res[3];
+        uint32_t _E = res[4];
         vector<uint32_t> W = this->genW(groups[n]);
         for (size_t t = 0; t < 80; t++) {
-            uint32_t tmp =  Tools::rotate_left(res[0], 5);
-            tmp += this->F(res[1], res[2], res[3], t);
-            tmp += res[4];
+            uint32_t tmp =  Tools::rotate_left(_A, 5);
+            tmp += this->F(_B, _C, _D, t);
+            tmp += _E;
             tmp += W[t];
             tmp += K[t / 20];
             // E
-            res[4] = res[3];
+            _E = _D;
             // D
-            res[3] = res[2];
+            _D = _C;
             // C
-            res[2] = Tools::rotate_left(res[1], 30);
+            _C = Tools::rotate_left(_B, 30);
             // B
-            res[1] = res[0];
+            _B = _A;
             // A
-            res[0] = tmp;
+            _A = tmp;
         }
 
-        res[0] += A; res[1] += B; res[2] += C; res[3] += D; res[4] += E;
+        this->res[0] += _A;
+        this->res[1] += _B;
+        this->res[2] += _C;
+        this->res[3] += _D;
+        this->res[4] += _E;
     }
 }
